@@ -1,0 +1,13 @@
+[from_kamailio]
+exten => _7X.,1,NoOp
+same => n,Set(CALLFILENAME=${EXTEN}-${STRFTIME(${EPOCH},,%Y%m%d-%H%M%S)}-${UNIQUEID}.gsm)
+same => n,Set(DESTINATION=${EXTEN})
+same => n,Progress()
+same => n,Answer
+same => n,MixMonitor(${CALLFILENAME})
+;same => n,Dial(SIP/goip/+7${EXTEN:1})
+same => n,Dial(SIP/goip/+7${EXTEN:1})
+exten => _8X.,1,Dial(SIP/kamailio/+7${EXTEN:1})
+exten => _+7.,1,Dial(SIP/kamailio/${EXTEN})
+;exten => _+X.,1,Dial(SIP/goip/+7${EXTEN:2})
+same => n,Hangup
